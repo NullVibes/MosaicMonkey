@@ -42,6 +42,14 @@ else
 	touch $workingDir\/$file
 fi
 
+bgImage="1920x1080black.png"
+if [ -f "$workingDir/$bgImage" ]; then
+	echo "Background image found."
+else
+	echo "Downloading background image."
+	#curl -LJO https://github.com/NullVibes/MosaicMonkey/blob/cca57e35045b058339ddeaa0a4b3265e8743b056/1920x1080black.png
+fi
+
 echo "#######################################################" >> $workingDir\/$file
 echo "#  VLC Video Mosaic Maker - (Multiple Video Streams)  #" >> $workingDir\/$file
 echo "#          Output from ./mosaicmonkey script          #" >> $workingDir\/$file
@@ -70,7 +78,7 @@ done
 
 echo "" >> $workingDir\/$file
 echo "new bg broadcast enabled" >> $workingDir\/$file
-echo "setup bg input \"/Users/user2/Downloads/1920x1080black.png\"" >> $workingDir\/$file
+echo "setup bg input \"1920x1080black.png\"" >> $workingDir\/$file
 echo "setup bg option image-duration=-1" >> $workingDir\/$file
 
 tcode="${tcode}\",keep-aspect-ratio=enabled,mosaic-align=0,keep-picture=1}}:bridge-in{offset=100}:display"
