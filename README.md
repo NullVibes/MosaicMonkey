@@ -1,5 +1,5 @@
 # MosaicMonkey
-MosaicMonkey is a quick shell script for `bash` that builds video mosaic files used with [VLC Media Player](https://www.videolan.org/).
+MosaicMonkey is a quick shell script for `bash` that builds video mosaic files used with [VLC Media Player](https://www.videolan.org/).  The output format is in the VideoLan Manager file format.  More information can be found on [wiki.videolan.org](https://wiki.videolan.org/Documentation:Streaming_HowTo/VLM/).
 
 ***Currently built for MacOS, but working on 'nix, too!***
 
