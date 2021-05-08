@@ -4,7 +4,7 @@ MosaicMonkey is a quick shell script for `bash` that builds video mosaic files u
 ***Currently built for MacOS, but working on 'nix, too!***
 
 
- ### Installation ###
+ ## Installation ##
 The files in this repository can be run directly.
 
 Ensure [VLC](https://www.videolan.org/) is installed.
@@ -22,7 +22,7 @@ This example launches the script that builds a mosaic file for camera streams 1,
 To add/change camera streams, simply edit the `mosaicmonkey.sh` script.
 Video streams from public webcams can be easily found using the [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/) web browser, and using the built-in ***Developer Tools***, under the ***Network*** tab. \(Check for file names ending in ***.m3u8***.)
 
-### Output ###
+## Output ##
 The resulting output of the script is written to a `mosaicMonkey.vlm` file, then VLC is automatically launched.
 
 \(This is done for you by the script.\)
