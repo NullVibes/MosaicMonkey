@@ -9,11 +9,9 @@ The files in this repository can be run directly.
 
 Ensure [VLC](https://www.videolan.org/) is installed.
 
-Once downloaded, `chmod +x` the script to make it executable.  Then, simply run `./mosaicmonkey` with the camera numbers \(in the script\) to build/launch the mosaic file. 
+Once downloaded, simply run `./mosaicmonkey` with the camera numbers \(in the script\) to build/launch the mosaic file. 
 
 Example:
-
-`chmod +x mosaicmonkey.sh`
 
 `./mosaicmonkey 1 5 7 9`
 
