@@ -94,5 +94,9 @@ macLoc="/Applications/VLC.app/Contents/MacOS"
 if [ -f "$macLoc/$app" ]; then
 	($macLoc/./VLC --vlm-conf $workingDir/$file)
 else
-	echo "Uh oh... Error opening VLC!"
+  if [ -n "$(command -v vlc)" ]; then
+    vlc --vlm-conf "${workingDir}/${file}"
+  else
+	  echo "Uh oh... Error finding VLC!"
+  fi
 fi
