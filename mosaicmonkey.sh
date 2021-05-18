@@ -35,11 +35,11 @@ workingDir="$(pwd)"
 file="mosaicMonkey.vlm"
 if [ -f "$workingDir/$file" ]; then
 	echo -e "Clearing previous config..."
-	printf "" > $workingDir\/$file
+	printf "" > "${workingDir}/${file}"
 	echo ""
 else
 	echo "Creating new config."
-	touch $workingDir\/$file
+	touch "${workingDir}/${file}"
 fi
 
 bgImage="1920x1080black.png"
@@ -50,12 +50,12 @@ else
 	#curl -LJO https://github.com/NullVibes/MosaicMonkey/blob/cca57e35045b058339ddeaa0a4b3265e8743b056/1920x1080black.png
 fi
 
-echo "#######################################################" >> $workingDir\/$file
-echo "#  VLC Video Mosaic Maker - (Multiple Video Streams)  #" >> $workingDir\/$file
-echo "#          Output from ./mosaicmonkey script          #" >> $workingDir\/$file
-echo "#                  Credit: NullVibes                  #" >> $workingDir\/$file
-echo "#######################################################" >> $workingDir\/$file
-echo "del all" >> $workingDir\/$file
+echo "#######################################################" >> "${workingDir}/${file}"
+echo "#  VLC Video Mosaic Maker - (Multiple Video Streams)  #" >> "${workingDir}/${file}"
+echo "#          Output from ./mosaicmonkey script          #" >> "${workingDir}/${file}"
+echo "#                  Credit: NullVibes                  #" >> "${workingDir}/${file}"
+echo "#######################################################" >> "${workingDir}/${file}"
+echo "del all" >> "${workingDir}/${file}"
 
 counter=0
 ctrlPlay=""
@@ -63,10 +63,10 @@ tcode="setup bg output #transcode{vcodec=mp4v,vb=0,fps=0,acodec=none,channels=$t
 while [ $counter -lt $totalCams ]; do
 	let counter+=1
 	camArray="camNum$1[1]"
-	echo "" >> $workingDir\/$file
-	echo "new ch$counter broadcast enabled" >> $workingDir\/$file
-	echo "setup ch$counter input ${!camArray}" >> $workingDir\/$file
-	echo "setup ch$counter output #mosaic-bridge{id=ch$counter,width=512,height=512}" >> $workingDir\/$file
+	echo "" >> "${workingDir}/${file}"
+	echo "new ch$counter broadcast enabled" >> "${workingDir}/${file}"
+	echo "setup ch$counter input ${!camArray}" >> "${workingDir}/${file}"
+	echo "setup ch$counter output #mosaic-bridge{id=ch$counter,width=512,height=512}" >> "${workingDir}/${file}"
 	ctrlPlay="${ctrlPlay}control ch$counter play\n"
 	if [[ $counter -eq $totalCams ]]; then
 		tcode="${tcode}ch$counter"
@@ -76,23 +76,27 @@ while [ $counter -lt $totalCams ]; do
 	shift
 done
 
-echo "" >> $workingDir\/$file
-echo "new bg broadcast enabled" >> $workingDir\/$file
-echo "setup bg input \"1920x1080black.png\"" >> $workingDir\/$file
-echo "setup bg option image-duration=-1" >> $workingDir\/$file
+echo "" >> "${workingDir}/${file}"
+echo "new bg broadcast enabled" >> "${workingDir}/${file}"
+echo "setup bg input \"1920x1080black.png\"" >> "${workingDir}/${file}"
+echo "setup bg option image-duration=-1" >> "${workingDir}/$file"
 
 tcode="${tcode}\",keep-aspect-ratio=enabled,mosaic-align=0,keep-picture=1}}:bridge-in{offset=100}:display"
-echo $tcode >> $workingDir\/$file
-echo "" >> $workingDir\/$file
-echo "control bg play" >> $workingDir\/$file
-echo -e $ctrlPlay >> $workingDir\/$file
-echo "" >> $workingDir\/$file
-echo "# END OF MOSAICMONKEY" >> $workingDir\/$file
+echo $tcode >> "${workingDir}/${file}"
+echo "" >> "${workingDir}/${file}"
+echo "control bg play" >> "${workingDir}/${file}"
+echo -e $ctrlPlay >> "${workingDir}/${file}"
+echo "" >> "${workingDir}/${file}"
+echo "# END OF MOSAICMONKEY" >> "${workingDir}/${file}"
 
 app="vlc"
 macLoc="/Applications/VLC.app/Contents/MacOS"
 if [ -f "$macLoc/$app" ]; then
 	($macLoc/./VLC --vlm-conf $workingDir/$file)
 else
-	echo "Uh oh... Error opening VLC!"
+  if [ -n "$(command -v vlc)" ]; then
+    vlc --vlm-conf "${workingDir}/${file}"
+  else
+	  echo "Uh oh... Error finding VLC!"
+  fi
 fi
